@@ -1,97 +1,766 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" class="scroll-smooth">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>群益期貨｜通路事業部 SPA</title>
 
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Feather Icons（router.js 會呼叫 feather.replace()） -->
-  <script src="https://unpkg.com/feather-icons"></script>
+<html class="scroll-smooth" lang="zh-Hant"><head>
+<link crossorigin="" href="https://cdn.tailwindcss.com" rel="preconnect"/>
+<meta content="群益期貨通路事業部人才招募：熱門職缺、福利與生活、職涯藍圖、應徵流程與常見問題，一站式了解並立即投遞。" name="description"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>群益期貨 通路事業部｜人才招募</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+        }
+        /* Color Palette */
+        :root {
+            --brand-red: #B91C1C; 
+            --primary-blue: #1E3A8A;
+            --secondary-gray: #334155;
+            --light-gray-bg: #f1f5f9;
+        }
+        .bg-primary { background-color: var(--primary-blue); }
+        .text-primary { color: var(--primary-blue); }
+        .bg-brand-red { background-color: var(--brand-red); }
+        .text-brand-red { color: var(--brand-red); }
+        .border-brand-red { border-color: var(--brand-red); }
+        .bg-light-gray { background-color: var(--light-gray-bg); }
 
-  <style>
-    :root{ --brand:#B91C1C; --primary:#1E3A8A; }
-    body{ font-family: 'Noto Sans TC', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:#f8fafc; color:#334155; }
-    .btn{ display:inline-flex; align-items:center; justify-content:center; padding:.7rem 1.1rem; border-radius:.8rem; font-weight:800; }
-    .btn-primary{ background:var(--brand); color:#fff; }
-    .btn-primary:hover{ background:#991B1B; }
-    /* 導覽 active 樣式（router.js 會幫你加 aria-current="page"） */
-    .header-nav a[aria-current="page"]{ color:var(--brand); font-weight:900; }
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .section-title {color: var(--primary-blue);
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 1rem; /* ~mb-4 */
+  font-size: 2.25rem;  /* ~text-4xl */
+  line-height: 1.2;
+}
+@media (min-width: 768px) {
+  .section-title {
+    font-size: 3rem;   /* ~md:text-5xl */
+  }
+}
+        .section-subtitle {color: var(--secondary-gray);
+  text-align: center;
+  margin-bottom: 3rem; /* ~mb-12 */
+  max-width: 48rem;    /* ~max-w-3xl */
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.75;   /* ~leading-relaxed */
+}
+@media (min-width: 768px) {
+  .section-subtitle {
+    margin-bottom: 5rem; /* ~md:mb-20 */
+  }
+}
+        
+        /* Call-to-Action Buttons - Updated Style */
+        .cta-button {display: inline-block;
+  padding: 0.75rem 2rem; /* px-8 py-3 */
+  font-weight: 700;
+  border-radius: 0.5rem; /* rounded-lg */
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+}
+.cta-button:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+        .cta-button-primary {background-color: var(--brand-red);
+  color: #fff;
+}
+.cta-button-primary:hover {
+  background-color: #991B1B; /* hover:bg-red-700 */
+}
+.cta-button-primary:focus {
+  outline-color: var(--brand-red);
+}
+        .cta-button-secondary {background-color: #fff;
+  color: var(--brand-red);
+  border: 2px solid var(--brand-red);
+}
+.cta-button-secondary:hover {
+  background-color: #FEF2F2; /* hover:bg-red-50 */
+}
+.cta-button-secondary:focus {
+  outline-color: var(--brand-red);
+}
 
-    /* tabs（open-account 頁會用到） */
-    .tab-content{ display:none; }
-    .tab-content.active{ display:block; }
+        .card {background-color: #fff;
+  padding: 2rem; /* p-8 */
+  border-radius: 1rem; /* rounded-2xl */
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  transform: translateY(0);
+}
+.card:hover {
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+  transform: translateY(-0.5rem);
+}
 
-    /* Modal（about 頁會用到） */
-    .modal{ position:fixed; inset:0; display:none; background:rgba(15,23,42,.55); }
-    .modal.active{ display:flex; align-items:center; justify-content:center; }
-  </style>
-</head>
-<body>
-  <!-- Header -->
-  <header class="bg-white/90 sticky top-0 z-40 border-b backdrop-blur">
-    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-      <a href="/" data-route="home" class="flex items-center gap-3 font-black text-[var(--primary)]">
-        <img src="images/群益logo.png" alt="Logo" class="h-8" onerror="this.src='https://placehold.co/120x32/1E3A8A/FFFFFF?text=LOGO';">
-        <span class="hidden sm:inline">通路事業部｜人才招募</span>
-      </a>
+        header.sticky {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.85);
+        }
 
-      <nav class="header-nav hidden md:flex items-center gap-3">
-        <a href="/home" data-route="home" class="px-3 py-2 hover:text-[var(--brand)]">首頁</a>
-        <a href="/about" data-route="about" class="px-3 py-2 hover:text-[var(--brand)]">關於我們</a>
-        <a href="/open-account" data-route="open-account" class="px-3 py-2 hover:text-[var(--brand)]">立即開戶</a>
-        <a href="/tutorial" data-route="tutorial" class="px-3 py-2 hover:text-[var(--brand)]">交易教學</a>
-        <a href="/platform" data-route="platform" class="px-3 py-2 hover:text-[var(--brand)]">交易平台</a>
-        <a href="/domestic-info" data-route="domestic-info" class="px-3 py-2 hover:text-[var(--brand)]">國內商品資訊</a>
-        <a href="/foreign-info" data-route="foreign-info" class="px-3 py-2 hover:text-[var(--brand)]">國外商品資訊</a>
-        <a href="/faq" data-route="faq" class="px-3 py-2 hover:text-[var(--brand)]">FAQ</a>
-        <a href="/open-account" data-route="open-account" class="btn btn-primary ml-2">我要應徵 / 開戶</a>
-      </nav>
+        /* FAQ Accordion Arrow */
+        .accordion-button::after {
+            content: '▼';
+            float: right;
+            transform: scale(0.8);
+            transition: transform 0.3s ease-in-out;
+            color: var(--primary-blue);
+        }
+        .accordion-button.open::after {
+            transform: scale(0.8) rotate(180deg);
+        }
 
-      <!-- Mobile -->
-      <button id="mobile-menu-button" class="md:hidden rounded-lg p-2 border">
-        <i data-feather="menu"></i>
-      </button>
-    </div>
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Gallery Button Style */
+        .gallery-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
 
-    <div id="mobile-menu" class="md:hidden hidden border-t bg-white">
-      <nav class="header-nav px-4 py-3 grid gap-2">
-        <a href="/home" data-route="home" class="py-2">首頁</a>
-        <a href="/about" data-route="about" class="py-2">關於我們</a>
-        <a href="/open-account" data-route="open-account" class="py-2">立即開戶</a>
-        <a href="/tutorial" data-route="tutorial" class="py-2">交易教學</a>
-        <a href="/platform" data-route="platform" class="py-2">交易平台</a>
-        <a href="/domestic-info" data-route="domestic-info" class="py-2">國內商品資訊</a>
-        <a href="/foreign-info" data-route="foreign-info" class="py-2">國外商品資訊</a>
-        <a href="/faq" data-route="faq" class="py-2">FAQ</a>
-      </nav>
-    </div>
-  </header>
+/* ---- Global heading spacing fix ---- */
+h1, h2, h3, h4 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+}
+/* ensure first paragraph after a heading has breathing room */
+h1 + p, h2 + p, h3 + p, h4 + p { margin-top: 0.5rem; }
+.card h3, .card h4 { margin-bottom: 0.5rem; }
+.job-header h3 { margin-bottom: 0.25rem; }
 
-  <!-- App 容器：router.js 會把 /pages/*.html 插進來 -->
-  <main class="max-w-6xl mx-auto px-4">
-    <div id="app" class="py-10"></div>
-  </main>
+/* ===== Metric Section Enhancements ===== */
+.highlights-section { position: relative; }
+.bg-dots-soft {
+  background-image: radial-gradient(rgba(30,58,138,.08) 1.6px, transparent 1.6px);
+  background-size: 14px 14px;
+}
+.metric-eyebrow{
+  display:inline-block;
+  font-size:.875rem;
+  color: var(--secondary-gray);
+  letter-spacing:.08em;
+  margin-bottom:.5rem;
+  position:relative;
+  padding:0 .75rem;
+}
+.metric-eyebrow:before, .metric-eyebrow:after{
+  content:"";
+  position:absolute;
+  top:50%;
+  width:48px;
+  height:2px;
+  background: linear-gradient(90deg, transparent, rgba(30,58,138,.35), transparent);
+  transform:translateY(-50%);
+}
+.metric-eyebrow:before{ left:-48px; }
+.metric-eyebrow:after{ right:-48px; }
 
-  <!-- Footer -->
-  <footer class="mt-10 bg-slate-900 text-slate-200">
-    <div class="max-w-6xl mx-auto px-4 py-10 text-center">
-      <h3 class="text-xl font-extrabold mb-2">有問題想先聊聊？</h3>
-      <p class="opacity-80">Email：<a class="underline" href="mailto:hr.channel@capital.com.tw">hr.channel@capital.com.tw</a></p>
-      <p class="mt-6 text-xs opacity-60">&copy; 2025 群益期貨股份有限公司</p>
-    </div>
-  </footer>
+.metric-card{
+  position:relative;
+  overflow:hidden;
+  border:1px solid #e5e7eb;
+}
+.metric-card:before{
+  content:"";
+  position:absolute;
+  inset:0 0 auto 0;
+  height:6px;
+  background: linear-gradient(90deg, #ef4444, #b91c1c);
+}
+.metric-value{ font-weight:900; letter-spacing:.02em; }
+.metric-label{ display:block; font-weight:800; }
+.metric-note{ opacity:.9; }
 
-  <!-- Services Modal（about 頁會呼叫 openServiceModal） -->
-  <div id="services-modal" class="modal" aria-hidden="true">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-[92%] p-6 relative">
-      <button id="services-close" class="absolute right-3 top-3 p-2 rounded hover:bg-slate-100" aria-label="Close">
-        <i data-feather="x"></i>
-      </button>
-      <div id="services-modal-body" class="prose"></div>
-    </div>
-  </div>
+/* ===== Segmented Feature Cards ===== */
+.seg-card{
+  position:relative;
+  border:1px solid #e5e7eb;
+}
+.seg-card:before{
+  content:"";
+  position:absolute;
+  left:0; top:0; right:0;
+  height:4px;
+  background: linear-gradient(90deg, var(--primary-blue), var(--brand-red));
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+/* ==== Training carousel spacing fix ==== */
+.training-carousel { 
+  position: relative; 
+  margin-bottom: 1.25rem; /* create space from caption */
+}
+#training-caption {
+  margin-top: 1.25rem; /* more breathing room below the carousel */
+  line-height: 1.6;
+}
+/* Ensure nav circles don't crowd the caption */
+.training-carousel .nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+.training-carousel .nav-btn.left { left: 0.5rem; }
+.training-carousel .nav-btn.right { right: 0.5rem; }
+
+
+/* ==== Training gallery caption overlay ==== */
+#training-gallery-container { position: relative; }
+#training-caption.training-caption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  margin: 0;
+  padding: 12px 16px;
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  line-height: 1.5;
+  background: linear-gradient(180deg, rgba(2,6,23,0) 0%, rgba(2,6,23,0.55) 45%, rgba(2,6,23,0.85) 100%);
+  backdrop-filter: saturate(120%) blur(0.5px);
+  z-index: 3;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+#training-gallery-dots { bottom: 56px; z-index: 4; }
+/* Ensure nav buttons sit above image but below caption gradient */
+.gallery-btn { z-index: 5; }
+
+
+/* --- Simple nav dropdown --- */
+header details[open] > div { display:block; }
+header details > div { display:none; }
+@media (max-width: 768px) {
+  header details > div { position:static; border:none; box-shadow:none; }
+}
+
+
+/* --- Readability helpers --- */
+.container-narrow { max-width: 72rem; margin-inline:auto; padding-inline: 1rem; }
+.lede { font-size: 1.0625rem; line-height: 1.9; color: var(--secondary-gray); }
+hr.section-divider { border: 0; height: 1px; width: min(92%, 72rem); margin: 2.5rem auto; background: linear-gradient(90deg, transparent, rgba(2,6,23,.14), transparent); }
+
+
+/* --- Ensure images never overflow on small screens --- */
+img { max-width: 100%; height: auto; }
+
+
+/* Prevent hidden anchors from affecting initial scroll */
+#team.sr-only, #units.sr-only { position: absolute; top: 0; left: 0; width: 0; height: 0; overflow: hidden; }
+
+
+/* Ensure the mobile dropdown is visible above content */
+#mobile-menu { z-index: 50; }
+
+/* --- NEW: Job Modal Styles --- */
+#job-modal-overlay.active,
+#job-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+#job-modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+</style>
+</head><body><header class="bg-white/80 sticky top-0 z-40 shadow-md border-b border-gray-200 transition-all duration-300">
+<nav class="container mx-auto px-6 h-20 flex justify-between items-center">
+<!-- Logo with Text Updated -->
+<a class="flex-shrink-0 flex items-center gap-3" href="#home">
+<img alt="群益期貨 Logo" class="h-10" onerror="this.onerror=null;this.src='https://placehold.co/150x40/1E3A8A/ffffff?text=群益期貨';" src="images/群益logo.png"/>
+<span class="text-primary font-semibold text-sm hidden md:inline border-l-2 pl-3 border-gray-300">通路事業部｜人才招募</span>
+</a>
+<div class="hidden md:flex items-center space-x-2"><a class="px-4 py-2 text-sm font-semibold text-primary rounded-lg hover:text-brand-red transition-colors" href="#about-us">關於我們</a>
+<a class="px-4 py-2 text-sm font-semibold text-primary rounded-lg hover:text-brand-red transition-colors" href="#openings">熱門職缺</a>
+<a class="px-4 py-2 text-sm font-semibold text-primary rounded-lg hover:text-brand-red transition-colors" href="#benefits-life">福利與生活</a>
+<a class="px-4 py-2 text-sm font-semibold text-primary rounded-lg hover:text-brand-red transition-colors" href="#career-path">職涯藍圖</a>
+<a class="px-4 py-2 text-sm font-semibold text-primary rounded-lg hover:text-brand-red transition-colors" href="#apply">應徵流程</a>
+<a class="px-4 py-2 text-sm font-semibold text-primary rounded-lg hover:text-brand-red transition-colors" href="#faq">常見問題</a>
+<div class="relative group">
+<details class="cursor-pointer">
+<summary class="px-4 py-2 text-sm font-semibold text-primary rounded-lg hover:text-brand-red transition-colors list-none">更多</summary>
+<div class="absolute right-0 mt-2 w-44 bg-white border border-gray-200 rounded-xl shadow-lg py-2 z-30">
+<a class="block px-4 py-2 text-sm hover:bg-gray-50" href="#highlights">指標亮點</a>
+<a class="block px-4 py-2 text-sm hover:bg-gray-50" href="#units">四大處室</a>
+<a class="block px-4 py-2 text-sm hover:bg-gray-50" href="#team">團隊生活</a>
+</div>
+</details>
+</div></div>
+<a class="hidden md:inline-block ml-4 cta-button-primary px-6 py-2 text-sm" href="#openings">立即應徵</a>
+<div class="md:hidden">
+<button aria-controls="mobile-menu" aria-expanded="false" class="text-primary focus:outline-none" id="mobile-menu-button" onclick="(function(btn){var m=document.getElementById('mobile-menu');if(!m)return;var h=m.classList.contains('hidden');m.classList.toggle('hidden');btn.setAttribute('aria-expanded', String(h));})(this)">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16M4 12h16m-7 6h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</nav>
+<!-- Mobile Menu -->
+<div class="hidden md:hidden bg-white border-t" id="mobile-menu">
+<a class="block text-center py-3 text-primary font-semibold hover:bg-gray-100" href="#about-us">關於我們</a>
+<a class="block text-center py-3 text-primary font-semibold hover:bg-gray-100" href="#openings">熱門職缺</a>
+<a class="block text-center py-3 text-primary font-semibold hover:bg-gray-100" href="#benefits-life">福利與生活</a>
+<a class="block text-center py-3 text-primary font-semibold hover:bg-gray-100" href="#career-path">職涯藍圖</a>
+<a class="block text-center py-3 text-primary font-semibold hover:bg-gray-100" href="#apply">應徵流程</a>
+<a class="block text-center py-3 text-primary font-semibold hover:bg-gray-100" href="#faq">常見問題</a>
+<a class="block text-center py-4 bg-brand-red text-white font-bold" href="#openings">立即應徵</a>
+</div>
+</header><main><div id="app"></div></main><div class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300" id="job-modal-overlay"></div><div class="fixed top-1/2 left-1/2 w-[92vw] max-w-3xl max-h-[90vh] bg-white rounded-2xl shadow-2xl z-50 opacity-0 scale-95 pointer-events-none transition-all duration-300 flex flex-col -translate-x-1/2 -translate-y-1/2" id="job-modal">
+<div class="p-6 border-b flex justify-between items-start">
+<div>
+<h2 class="text-2xl font-bold text-primary" id="modal-title">職缺詳情</h2>
+<p class="text-secondary-gray font-semibold" id="modal-department"></p>
+</div>
+<button aria-label="關閉視窗" class="text-gray-400 hover:text-brand-red transition-colors" id="modal-close-btn">
+<svg fill="none" height="28" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+<div class="p-6 md:p-8 overflow-y-auto flex-grow" id="modal-body">
+<!-- Job details will be injected here -->
+</div>
+<div class="p-6 bg-slate-50 border-t rounded-b-2xl text-center">
+<a class="cta-button-primary inline-block" href="#apply" id="modal-apply-btn">我要應徵這個職位</a>
+</div>
+</div><script>
+        // --- Data ---
+        const jobCarouselItems = ["專案整合幕僚","證券通路業務","數位通路業務科長","數位通路業務員","行政企劃人員"];
+        const jobs = [
+            {id:1,title:'專案整合幕僚',department:'綜合企劃處',tags:['跨部門協作','制度設計','專案管理'],preview:'我們正在尋找一位擁有系統思維、進度敏感度與策略眼光的「幕僚型人才」。你將直接支援部門主管，協助追蹤專案、整合資源、建立流程，讓策略真正被執行、讓專案不只是待辦清單，而是成果。這不只是追進度的工作，而是幫一整個部門「跑得動、跑得快、跑得準」。',description:'我們正在尋找一位擁有系統思維、進度敏感度與策略眼光的「幕僚型人才」。你將直接支援部門主管，協助追蹤專案、整合資源、建立流程，讓策略真正被執行、讓專案不只是待辦清單，而是成果。這不只是追進度的工作，而是幫一整個部門「跑得動、跑得快、跑得準」。',responsibilities:['整合各處室專案進度與風險預警、進程設定','協助製作簡報、會議記錄、提案架構與執行追蹤','跨部門協作窗口，處理部門與他單位的溝通橋梁','優化制度流程與KPI追蹤邏輯，提升內部效率','主管交辦之專案研究、數據報告、制度內化輔助'],growth:'你將學會如何從部門高度鳥瞰全局，並深入細節推動執行。這是培養策略思維與營運管理能力的最佳位置。',qualifications:['擅長統整資訊與掌控節奏，邏輯與文字表達都不錯','熟悉 Notion / Excel / PowerPoint 等工具','有專案管理、營運企劃、幕僚或策略助理經驗佳','喜歡在「人與制度中間」，幫助事情發生的人']},
+            {id:2,title:'證券通路業務',department:'證券通路處',tags:['分公司協調','教育輔導','現場手感'],preview:'不是只會講商品，而是願意走進分公司，帶著制度與商品去解題，講「怎麼讓這件事在這裡發生」。',description:'不是每個證券分公司都會主動推期貨，但你可以讓這件事變得可行。我們正在尋找願意走進分公司、帶著制度與商品去解題的你。不是只會講商品，而是願意講「怎麼讓這件事在這裡發生」。',responsibilities:['規劃分公司期貨教育與商品推廣活動','協助設計銷售話術與業績激勵制度，提升轉化動能','實地拜訪、輔導營業員跨商品經營（含策略分享）','擔任總公司與據點的溝通協調者，處理落地細節','撰寫活動報告與提案資料，追蹤制度成效'],growth:'你將成為總公司與前線的關鍵樞紐，培養面對面的溝通協調力、教育訓練的設計力，以及解決實際業務問題的實戰力。',qualifications:['曾在金融前線（如證券營業員）或推廣端工作過','喜歡到現場與人互動、分享經驗、拆解問題','懂商品、不怕講解，有制度敏感度與教學熱忱','願意全台分公司出差，有戰略思維也有現場手感']},
+            {id:3,title:'數位通路業務科長',department:'數位通路處',tags:['數位帶人','團隊領導','業績拓展'],preview:'這不只是一份主管職，而是一項推動金融服務轉型的任務。你將負責打造並帶領一支以數位化為核心的業務團隊。',description:'通路事業部正在招募一位能夠結合業務開發力、團隊領導力與數位思維的數位業務科長。這不只是一份主管職，而是一項推動金融服務轉型的任務。你將負責打造並帶領一支以數位化為核心的業務團隊，橫跨線上與線下、期貨與證券、內容與商品、策略與成效。',responsibilities:['擬定業務拓展策略，發展數位通路與異業合作','負責期貨與證券業務之線上、線下整合推廣','深耕法人與高資產客群，提供策略引導與商品解說','規劃社群媒體話題策略，搭配團隊行銷活動推進導客成效','主導業務企劃與專案執行，定期檢核績效與轉換率','帶領並培訓團隊成員，建立可複製、可擴張的業務行為模式'],growth:'你將從一個執行者轉變為策略制定者與團隊領導者，學習如何從零到一建立團隊、設計業務模式，並用數據驅動決策。',qualifications:['有金融業務經驗3年以上，曾任業績好手或初階主管','有帶團隊經驗，具備規劃、輔導與績效追蹤能力','對顧問商品、策略導客、異業合作有高度興趣與實戰思維']},
+            {id:4,title:'數位通路業務員',department:'數位通路處',tags:['數位導客','客戶經營','團隊合作'],preview:'這份工作不是拼人脈、拼話術，而是透過內容、工具與團隊合作，系統化地培養你成為懂操作、會引導、持續進化的數位型業務員。',description:'你不需要自己單打獨鬥、從零摸索。我們已經準備好完整的 LINE 導客流程、教育素材、活動支援，讓你可以把重心放在「與客戶建立信任、提供價值」上。這份工作不是拼人脈、拼話術，而是透過內容、工具與團隊合作，系統化地培養你成為懂操作、會引導、持續進化的數位型業務員。',responsibilities:['經營國內外期貨、選擇權交易客戶，提供策略觀點與市場分析','透過講座、LINE、教育互動導客，建立穩定客戶關係','協助使用交易工具與商品操作引導（含期權邏輯）','積極參與訓練課程與商品會議，持續強化市場敏感度','發想、執行團隊業務活動，協助推廣主題與轉化流程'],growth:'你將學會最前緣的數位行銷與客戶經營技巧，建立自己的線上專業品牌，並在團隊支援下，打造穩健且可持續成長的業績模式。',qualifications:['有期貨業務員資格（必要）','對市場、數據、交易邏輯有興趣，樂於學習','重視關係經營，致力於長期支持與策略陪跑','想從單打獨鬥轉向系統化業績模式的人']},
+            {id:5,title:'行政企劃人員',department:'綜合企劃處',tags:['制度設計','數據分析','營運支援'],preview:'你將成為部門最重要的推進引擎之一，負責設計制度、撰寫SOP、做出讓大家看得懂的數據報表，幫助每一位業務、每一個制度都能清楚執行、持續優化。',description:'你將成為部門最重要的推進引擎之一，負責設計制度、撰寫SOP、做出讓大家看得懂的數據報表，幫助每一位業務、每一個制度都能清楚執行、持續優化。如果你喜歡邏輯、有系統、善分析，這裡很適合你發揮。',responsibilities:['設計獎勵制度、跨商品激勵方案與業績追蹤機制','製作業務儀表板與營運報表，協助主管掌握數據與績效','撰寫並維護SOP、制度公告、推動內部制度落地','整合行銷活動所需行政支援，協助物料、流程與後勤安排','參與內外部行銷推廣與教育活動之專案執行與追蹤','支援跨處行政流程與主管交辦事項，協助專案統整與資料彙整'],growth:'你將成為組織運作的架構師，從數據中洞察問題，用制度解決問題。這份工作能培養你強大的邏輯分析與流程優化能力。',qualifications:['熟悉 Excel、Google Sheets、PPT','有制度設計、營運分析、行政或業務支援經驗佳','細心、有邏輯、可以一次處理多件事且條理清楚','喜歡當組織中讓事情變簡單、資訊變透明的那個人']}
+        ];
+        const benefits = [
+            {icon:'<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-red"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>',title:'全方位年度福利',description:'我們關心您的身心，提供年度健康檢查；您的貢獻值得回報，保障年終與三節獎金，更有旅遊補助與生日禮金，讓您工作與生活平衡。'},
+            {icon:'<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-red"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>',title:'系統化培訓計畫',description:'從完整的新人訓到跨單位輪調，我們投資您的成長。這裡有深度的顧問商品教育，更有外部專業課程補助，助您成為頂尖人才。'},
+            {icon:'<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-red"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',title:'透明的溝通文化',description:'這裡不只教您賣商品，更教您建立專業品牌。我們鼓勵雙向溝通，您的聲音會被聽見，您的想法能推動改變。'},
+            {icon:'<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-red"><path d="M12.54 2.13a1 1 0 0 0-1.08 0l-4 2A1 1 0 0 0 7 5a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1 1 1 0 0 0-.46-.87Z"/><path d="M4 10.27V22c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-11.73"/><path d="M22 10.27 12 5 2 10.27"/></svg>',title:'充滿活力的團隊',description:'我們是戰友，也是家人。定期的部門聚餐、慶功宴、主題分享會與戶外 Team Building，讓團隊合作不只在辦公室，更在生活裡。'}
+        ];
+        const applySteps = [
+            {number:1, title:'提出申請', description:'投遞履歷或加入LINE'},
+            {number:2, title:'預約初談', description:'線上或電話初步認識'},
+            {number:3, title:'主管面談', description:'深入了解專業與潛力'},
+            {number:4, title:'條件確認', description:'薪資福利與報到細節'},
+            {number:'✓', title:'成為戰友', description:'歡迎加入我們！', isFinal:true}
+        ];
+        const faqs = [
+            { question: '我是金融新手也可以應徵嗎？', answer: '部分職位歡迎無經驗但充滿熱忱的新手，特別是數位通路業務員與行政企劃人員。我們會提供完整的職前與在職訓練。但部分職位如證券通路業務、業務科長則需要相關經驗。請詳閱各職缺的條件說明。' },
+            { question: '會不會需要出差到分公司？', answer: '「證券通路業務」需要頻繁至全台各分公司出差，是這個職位的主要工作內容之一。其他職位基本上以內勤為主，若有出差需求會是特例情況。' },
+            { question: '需要自己找客戶嗎？', answer: '我們的「數位通路處」已建立一套完整的數位導客系統，公司會提供名單與工具，讓你專注在客戶經營與服務上，而非傳統的陌生開發。我們更重視團隊合作與系統化作戰。' },
+            { question: '有績效壓力嗎？制度怎麼算？', answer: '我們是目標導向的團隊，設有清晰的KPI與獎勵制度，但更強調團隊目標的達成。我們鼓勵健康的競爭，但反對惡性搶單。詳細的獎金與激勵制度會在面談時清楚說明，我們相信透明的制度是團隊信任的基礎。' }
+        ];
+        const teamPhotos = [
+            'images/照片7.jpg', 'images/照片6.jpg', 'images/照片5.jpg', 'images/照片4.jpg',
+            'images/照片3.jpg', 'images/照片2.jpg', 'images/照片1.jpg'
+        ];
+        const trainingPhotos = [
+    {src:'images/教育訓練.jpg', caption:'教育訓練：完整新人訓練與專業進修課程'},
+    {src:'images/內外業務轉換.jpg', caption:'內外業務轉換：內勤 × 外勤協作推進業務'},
+    {src:'images/活化客戶.jpg', caption:'活化客戶：活動設計、獎勵機制提升轉化'},
+    {src:'images/投資講座.png', caption:'投資講座：專家講座與市場觀點分享'}
+];
+
+        // --- Functions ---
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Job Carousel
+            const jobCarouselEl = document.getElementById('job-carousel');
+            if(jobCarouselEl) {
+                let carouselIndex = 0;
+                function updateCarousel() {
+                    jobCarouselEl.classList.add('opacity-0');
+                    setTimeout(() => {
+                        jobCarouselEl.textContent = jobCarouselItems[carouselIndex];
+                        jobCarouselEl.classList.remove('opacity-0');
+                        carouselIndex = (carouselIndex + 1) % jobCarouselItems.length;
+                    }, 500);
+                }
+                updateCarousel();
+                setInterval(updateCarousel, 3000);
+            }
+
+            // --- REFACTORED: Job Modal Logic ---
+            const jobListContainer = document.getElementById('job-list');
+            const modalOverlay = document.getElementById('job-modal-overlay');
+            const modal = document.getElementById('job-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDepartment = document.getElementById('modal-department');
+            const modalBody = document.getElementById('modal-body');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+            const modalApplyBtn = document.getElementById('modal-apply-btn');
+
+            if (jobListContainer && modal) {
+                // 1. Populate Job List with clickable cards
+                jobs.forEach(job => {
+                    const wrapper = document.createElement('div');
+                    // Using a class 'job-card-trigger' for clarity in event delegation
+                    wrapper.className = 'job-card-trigger bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group';
+                    wrapper.dataset.jobId = job.id;
+                    wrapper.setAttribute('role', 'button');
+                    wrapper.setAttribute('tabindex', '0');
+                    wrapper.setAttribute('aria-label', `查看 ${job.title} 職缺詳情`);
+                    wrapper.innerHTML = `
+                        <div class="p-6">
+                            <div class="flex justify-between items-start gap-4">
+                                <div>
+                                    <h3 class="text-xl font-bold text-primary group-hover:text-brand-red transition-colors">${job.title}</h3>
+                                    <p class="text-sm font-semibold text-secondary-gray mt-1">${job.department}</p>
+                                </div>
+                                <div class="text-brand-red text-2xl pt-1 transform transition-transform duration-300 flex-shrink-0 group-hover:translate-x-1" aria-hidden="true">→</div>
+                            </div>
+                            <p class="text-gray-600 mt-4 leading-relaxed text-sm">${job.preview}</p>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                ${job.tags.map(tag => `<span class="bg-red-100 text-brand-red text-xs font-semibold px-2.5 py-0.5 rounded-full">${tag}</span>`).join('')}
+                            </div>
+                        </div>
+                    `;
+                    jobListContainer.appendChild(wrapper);
+                });
+
+                // 2. Function to open modal
+                const openModal = (jobId) => {
+                    const job = jobs.find(j => j.id == jobId);
+                    if (!job) return;
+
+                    // Populate modal content
+                    modalTitle.textContent = job.title;
+                    modalDepartment.textContent = job.department;
+                    modalBody.innerHTML = `
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-lg font-bold text-primary mb-2 border-b-2 border-brand-red pb-1 inline-block">✅ 任務內容</h4>
+                                <ul class="list-disc list-inside space-y-2 text-gray-700 mt-3 leading-relaxed">
+                                    ${job.responsibilities.map(r => `<li>${r}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-primary mb-2 border-b-2 border-brand-red pb-1 inline-block">🚀 你會獲得的成長</h4>
+                                <p class="text-gray-700 mt-3 leading-relaxed">${job.growth}</p>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-primary mb-2 border-b-2 border-brand-red pb-1 inline-block">👥 我們在找這樣的你</h4>
+                                <ul class="list-disc list-inside space-y-2 text-gray-700 mt-3 leading-relaxed">
+                                    ${job.qualifications.map(q => `<li>${q}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Show modal
+                    modalOverlay.classList.add('active');
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                };
+
+                // 3. Function to close modal
+                const closeModal = () => {
+                    modalOverlay.classList.remove('active');
+                    modal.classList.remove('active');
+                    document.body.style.overflow = ''; // Restore scrolling
+                };
+
+                // 4. Event Listeners
+                jobListContainer.addEventListener('click', (e) => {
+                    const card = e.target.closest('.job-card-trigger');
+                    if (card) {
+                        openModal(card.dataset.jobId);
+                    }
+                });
+                 jobListContainer.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        const card = e.target.closest('.job-card-trigger');
+                        if (card) {
+                            e.preventDefault(); // Prevent space from scrolling
+                            openModal(card.dataset.jobId);
+                        }
+                    }
+                });
+
+                modalCloseBtn.addEventListener('click', closeModal);
+                modalOverlay.addEventListener('click', closeModal);
+                modalApplyBtn.addEventListener('click', closeModal); // Also close modal when clicking apply
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && modal.classList.contains('active')) {
+                        closeModal();
+                    }
+                });
+            }
+            
+            // Populate Benefits
+            const benefitsContainer = document.querySelector('#benefits-life .grid .grid');
+            if(benefitsContainer) {
+                benefits.forEach(benefit => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <div class="flex justify-center mb-4">${benefit.icon}</div>
+                        <h4 class="text-xl font-bold text-primary mb-5">${benefit.title}</h4>
+                        <p class="text-sm leading-loose">${benefit.description}</p>
+                    `;
+                    benefitsContainer.appendChild(card);
+                });
+            }
+
+            // Team Life Gallery
+            const galleryImage = document.getElementById('gallery-image');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const galleryDotsContainer = document.getElementById('gallery-dots');
+            if(galleryImage) {
+                let currentPhotoIndex = 0;
+
+                function updateGallery() {
+                    galleryImage.src = teamPhotos[currentPhotoIndex];
+                    galleryImage.onerror = function() {
+                        this.onerror=null;
+                        this.src=`https://placehold.co/900x600/f1f5f9/334155?text=圖片載入失敗`;
+                    };
+                    prevBtn.disabled = currentPhotoIndex === 0;
+                    nextBtn.disabled = currentPhotoIndex === teamPhotos.length - 1;
+                    
+                    const dots = galleryDotsContainer.querySelectorAll('.dot');
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('bg-primary', index === currentPhotoIndex);
+                        dot.classList.toggle('bg-gray-300', index !== currentPhotoIndex);
+                    });
+                }
+                
+                teamPhotos.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'dot w-3 h-3 rounded-full transition-colors duration-300';
+                    dot.addEventListener('click', () => {
+                        currentPhotoIndex = index;
+                        updateGallery();
+                    });
+                    galleryDotsContainer.appendChild(dot);
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    if (currentPhotoIndex > 0) {
+                        currentPhotoIndex--;
+                        updateGallery();
+                    }
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    if (currentPhotoIndex < teamPhotos.length - 1) {
+                        currentPhotoIndex++;
+                        updateGallery();
+                    }
+                });
+
+                updateGallery();
+            }
+
+            // Training Gallery
+            const trainingGalleryImage = document.getElementById('training-gallery-image');
+            const trainingCaptionEl = document.getElementById('training-caption');
+            const trainingPrevBtn = document.getElementById('training-prev-btn');
+            const trainingNextBtn = document.getElementById('training-next-btn');
+            const trainingGalleryDotsContainer = document.getElementById('training-gallery-dots');
+            if(trainingGalleryImage) {
+                let currentTrainingPhotoIndex = 0;
+
+                function updateTrainingGallery() {
+                    trainingGalleryImage.src = trainingPhotos[currentTrainingPhotoIndex].src;
+                    if (trainingCaptionEl) trainingCaptionEl.textContent = trainingPhotos[currentTrainingPhotoIndex].caption;
+                    trainingGalleryImage.onerror = function() {
+                        this.onerror=null;
+                        this.src=`https://placehold.co/900x600/f1f5f9/334155?text=圖片載入失敗`;
+                    };
+                    trainingPrevBtn.disabled = currentTrainingPhotoIndex === 0;
+                    trainingNextBtn.disabled = currentTrainingPhotoIndex === trainingPhotos.length - 1;
+                    
+                    const dots = trainingGalleryDotsContainer.querySelectorAll('.dot');
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('bg-primary', index === currentTrainingPhotoIndex);
+                        dot.classList.toggle('bg-gray-300', index !== currentTrainingPhotoIndex);
+                    });
+                }
+                
+                trainingPhotos.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'dot w-3 h-3 rounded-full transition-colors duration-300';
+                    dot.addEventListener('click', () => {
+                        currentTrainingPhotoIndex = index;
+                        updateTrainingGallery();
+                    });
+                    trainingGalleryDotsContainer.appendChild(dot);
+                });
+
+                trainingPrevBtn.addEventListener('click', () => {
+                    if (currentTrainingPhotoIndex > 0) {
+                        currentTrainingPhotoIndex--;
+                        updateTrainingGallery();
+                    }
+                });
+
+                trainingNextBtn.addEventListener('click', () => {
+                    if (currentTrainingPhotoIndex < trainingPhotos.length - 1) {
+                        currentTrainingPhotoIndex++;
+                        updateTrainingGallery();
+                    }
+                });
+
+                updateTrainingGallery();
+            }
+
+            // Populate Apply Steps
+            const applyStepsContainer = document.getElementById('apply-steps-container');
+            if(applyStepsContainer) {
+                applySteps.forEach(step => {
+                    const stepEl = document.createElement('div');
+                    stepEl.className = 'flex flex-col items-center relative';
+                    stepEl.innerHTML = `
+                        <div class="w-16 h-16 rounded-full ${step.isFinal ? 'bg-brand-red' : 'bg-primary'} text-white flex items-center justify-center text-2xl font-bold border-4 border-light-gray shadow-md z-10">${step.number}</div>
+                        <h4 class="font-bold mt-4 text-primary">${step.title}</h4>
+                        <p class="text-sm text-secondary-gray leading-relaxed mt-2">${step.description}</p>
+                    `;
+                    applyStepsContainer.appendChild(stepEl);
+                });
+            }
+
+            // Populate FAQs
+            const faqContainer = document.getElementById('faq-container');
+            if(faqContainer) {
+                faqs.forEach(faq => {
+                    const faqItem = document.createElement('div');
+                    faqItem.className = 'border border-gray-200 rounded-lg bg-white shadow-sm';
+                    faqItem.innerHTML = `
+                        <button class="accordion-button w-full p-5 text-left font-semibold text-primary focus:outline-none">
+                            ${faq.question}
+                        </button>
+                        <div class="accordion-content hidden p-5 pt-0 text-gray-600 leading-relaxed">
+                            ${faq.answer}
+                        </div>
+                    `;
+                    faqContainer.appendChild(faqItem);
+                });
+
+                // FAQ Accordion Logic
+                faqContainer.addEventListener('click', function(e) {
+                    const button = e.target.closest('.accordion-button');
+                    if (button) {
+                        button.classList.toggle('open');
+                        const content = button.nextElementSibling;
+                        content.classList.toggle('hidden');
+                    }
+                });
+            }
+
+            // Scroll Animations
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script><script>
+// Force-start at top unless there's a hash (handles Safari/BFCache/lazy images causing reflow)
+(function() {
+  var hasHash = !!location.hash;
+  try { if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; } } catch(e) {}
+
+  function jumpTop() {
+    if (hasHash) return;
+    var doc = document.documentElement, body = document.body;
+    // Temporarily disable smooth scroll to avoid animated drift
+    var prev = doc.style.scrollBehavior;
+    doc.style.scrollBehavior = 'auto';
+    window.scrollTo(0, 0);
+    // Restore after tick
+    setTimeout(function(){ doc.style.scrollBehavior = prev || ''; }, 50);
+  }
+
+  // Multiple safeguards in the first second after load
+  function guard() {
+    if (hasHash) return;
+    var tries = 0;
+    var t = setInterval(function() {
+      if (location.hash) { clearInterval(t); return; }
+      if (window.scrollY > 20) jumpTop();
+      if (++tries > 30) clearInterval(t); // ~1.5s
+    }, 50);
+  }
+
+  // Run as early as possible
+  window.addEventListener('DOMContentLoaded', jumpTop);
+  window.addEventListener('load', function(){ jumpTop(); guard(); });
+  window.addEventListener('pageshow', function(e){ if (e.persisted) { jumpTop(); guard(); } });
+})();
+</script><script>
+// Mobile menu toggle + auto-close (click link / outside / ESC / resize)
+(function(){
+  function qs(sel){ return document.querySelector(sel); }
+  const btn  = qs('#mobile-menu-button');
+  const menu = qs('#mobile-menu');
+  if(!btn || !menu) return;
+  btn.setAttribute('aria-controls','mobile-menu');
+  btn.setAttribute('aria-expanded','false');
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    const isHidden = menu.classList.contains('hidden');
+    if(isHidden){ menu.classList.remove('hidden'); }
+    else        { menu.classList.add('hidden'); }
+    btn.setAttribute('aria-expanded', String(isHidden));
+  });
+  function closeMenu(){
+    if(!menu.classList.contains('hidden')){
+      menu.classList.add('hidden');
+      btn.setAttribute('aria-expanded','false');
+    }
+  }
+  // Close when clicking a nav link
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  // Close on outside click
+  document.addEventListener('click', function(ev){
+    const within = menu.contains(ev.target) || btn.contains(ev.target);
+    if(!within) closeMenu();
+  });
+  // Close on ESC
+  document.addEventListener('keydown', function(ev){
+    if(ev.key === 'Escape') closeMenu();
+  });
+  // Close when viewport becomes md and above
+  window.addEventListener('resize', function(){
+    if(window.matchMedia('(min-width: 768px)').matches){
+      closeMenu();
+    }
+  });
+})();
+</script></body></html>
 
   <!-- 掛載你的 Router -->
   <script src="router.js" defer></script>
