@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>群益期貨｜通路事業部 Careers</title>
+  <meta name="description" content="加入群益期貨通路事業部：關於我們、職缺、福利、職涯、應徵流程、FAQ、聯絡方式。" />
+  <link rel="icon" href="data:," />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { height: 100%; }
+    .container-narrow { max-width: 1100px; }
+    .nav-link-active { color: #2563eb; font-weight: 700; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-800">
+  <!-- 與 index 相同的 App Shell -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+    <div class="mx-auto container-narrow px-4 py-3 flex items-center justify-between">
+      <a href="/" data-link data-route="/" class="flex items-center gap-2">
+        <span class="text-xl font-extrabold">群益期貨</span>
+        <span class="text-sm text-slate-500">｜通路事業部 Careers</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-5 text-sm">
+        <a href="/" data-link data-route="/" class="hover:text-blue-600">首頁</a>
+        <a href="/about-us" data-link data-route="/about-us" class="hover:text-blue-600">關於我們</a>
+        <a href="/openings" data-link data-route="/openings" class="hover:text-blue-600">招募職缺</a>
+        <a href="/benefits-life" data-link data-route="/benefits-life" class="hover:text-blue-600">福利制度</a>
+        <a href="/career-path" data-link data-route="/career-path" class="hover:text-blue-600">職涯發展</a>
+        <a href="/apply" data-link data-route="/apply" class="hover:text-blue-600">應徵流程</a>
+        <a href="/faq" data-link data-route="/faq" class="hover:text-blue-600">常見問題</a>
+        <a href="/contact" data-link data-route="/contact" class="hover:text-blue-600">聯絡我們</a>
+        <button type="button" aria-disabled="true"
+                class="ml-2 px-3 py-2 rounded-lg border text-xs font-semibold cursor-default select-text">
+          馬上來電 (02)2700-2888
+        </button>
+      </nav>
+      <button id="menuBtn" class="md:hidden px-3 py-2 rounded border text-sm">選單</button>
+    </div>
+    <div id="mobileNav" class="md:hidden hidden border-t bg-white">
+      <div class="mx-auto container-narrow px-4 py-3 grid grid-cols-2 gap-3 text-sm">
+        <a href="/" data-link data-route="/" class="block">首頁</a>
+        <a href="/about-us" data-link data-route="/about-us" class="block">關於我們</a>
+        <a href="/openings" data-link data-route="/openings" class="block">招募職缺</a>
+        <a href="/benefits-life" data-link data-route="/benefits-life" class="block">福利制度</a>
+        <a href="/career-path" data-link data-route="/career-path" class="block">職涯發展</a>
+        <a href="/apply" data-link data-route="/apply" class="block">應徵流程</a>
+        <a href="/faq" data-link data-route="/faq" class="block">常見問題</a>
+        <a href="/contact" data-link data-route="/contact" class="block">聯絡我們</a>
+        <div class="col-span-2">
+          <div class="mt-2 px-3 py-2 rounded-lg border text-xs font-semibold inline-block">
+            馬上來電 (02)2700-2888
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="app" class="grow"></main>
+
+  <footer class="border-t bg-white">
+    <div class="mx-auto container-narrow px-4 py-10 text-sm text-slate-600">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>© <span id="y"></span> 群益期貨通路事業部｜Careers</div>
+        <div class="flex items-center gap-4">
+          <a href="/openings" data-link class="text-blue-700 hover:underline">立即應徵</a>
+          <a href="/contact" data-link class="hover:underline">聯絡我們</a>
+        </div>
+      </div>
+      <p class="mt-3 text-xs text-slate-400">
+        本網站之內容僅供招募與一般性介紹；非投資建議。實際職缺內容與條件以正式公告為準。
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    const btn = document.getElementById('menuBtn');
+    const nav = document.getElementById('mobileNav');
+    btn?.addEventListener('click', () => nav.classList.toggle('hidden'));
+  </script>
+  <script src="./router.js" defer></script>
+</body>
+</html>
