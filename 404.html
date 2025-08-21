@@ -6,18 +6,15 @@
   <title>Redirecting…</title>
   <script>
     (function(){
-      // 偵測 BASE
       var parts = location.pathname.split('/').filter(Boolean);
       var base = '/';
       if (location.hostname.endsWith('github.io') && parts.length > 0) {
         var first = parts[0];
         if (first && !first.includes('.')) base = '/' + first + '/';
       }
-      // 取當前深連結（扣掉 base）
       var path = location.pathname;
       if (base !== '/' && path.startsWith(base)) path = path.slice(base.length - 1) || '/';
       if (!path) path = '/';
-      // 帶 ?p= 回到殼
       var url = base + '?p=' + encodeURIComponent(path + location.search + location.hash);
       location.replace(url);
     })();
