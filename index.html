@@ -6,23 +6,22 @@
   <title>群益期貨｜通路事業部 Careers</title>
   <meta name="description" content="加入群益期貨通路事業部：關於我們、職缺、福利、職涯、應徵流程、FAQ、聯絡方式。" />
   <link rel="icon" href="data:," />
-  <!-- Tailwind CDN（可改為自托管 CSS） -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     html, body { height: 100%; }
     .container-narrow { max-width: 1100px; }
     .nav-link-active { color: #2563eb; font-weight: 700; }
+    .modal-open { overflow: hidden; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-800">
-  <!-- Header / Navbar -->
+  <!-- Header -->
   <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
     <div class="mx-auto container-narrow px-4 py-3 flex items-center justify-between">
       <a href="/" data-link data-route="/" class="flex items-center gap-2">
         <span class="text-xl font-extrabold">群益期貨</span>
         <span class="text-sm text-slate-500">｜通路事業部 Careers</span>
       </a>
-
       <nav class="hidden md:flex items-center gap-5 text-sm">
         <a href="/" data-link data-route="/" class="hover:text-blue-600">首頁</a>
         <a href="/about-us" data-link data-route="/about-us" class="hover:text-blue-600">關於我們</a>
@@ -32,18 +31,13 @@
         <a href="/apply" data-link data-route="/apply" class="hover:text-blue-600">應徵流程</a>
         <a href="/faq" data-link data-route="/faq" class="hover:text-blue-600">常見問題</a>
         <a href="/contact" data-link data-route="/contact" class="hover:text-blue-600">聯絡我們</a>
-        <!-- 馬上來電：不可點的按鈕（依你要求） -->
         <button type="button" aria-disabled="true"
                 class="ml-2 px-3 py-2 rounded-lg border text-xs font-semibold cursor-default select-text">
           馬上來電 (02)2700-2888
         </button>
       </nav>
-
-      <!-- Mobile Menu Button -->
       <button id="menuBtn" class="md:hidden px-3 py-2 rounded border text-sm">選單</button>
     </div>
-
-    <!-- Mobile Nav -->
     <div id="mobileNav" class="md:hidden hidden border-t bg-white">
       <div class="mx-auto container-narrow px-4 py-3 grid grid-cols-2 gap-3 text-sm">
         <a href="/" data-link data-route="/" class="block">首頁</a>
@@ -66,6 +60,38 @@
   <!-- App Viewport -->
   <main id="app" class="grow"></main>
 
+  <!-- ===== 職缺 Modal（預設隱藏） ===== -->
+  <div id="jobModal" class="fixed inset-0 z-[60] hidden">
+    <div id="jobModalOverlay" class="absolute inset-0 bg-black/40"></div>
+    <div class="absolute inset-0 flex items-center justify-center px-4">
+      <article class="w-full max-w-2xl rounded-2xl bg-white shadow-xl border">
+        <header class="px-6 py-4 border-b flex items-center justify-between">
+          <h3 id="jobModalTitle" class="text-xl font-bold">職缺標題</h3>
+          <button id="jobModalClose" class="p-2 rounded hover:bg-slate-100" aria-label="關閉">
+            ✕
+          </button>
+        </header>
+        <div class="px-6 py-4 space-y-4 max-h-[70vh] overflow-auto">
+          <p id="jobModalSummary" class="text-slate-700"></p>
+          <div>
+            <h4 class="font-semibold">工作內容</h4>
+            <ul id="jobModalResp" class="list-disc pl-5 mt-1 space-y-1 text-slate-700"></ul>
+          </div>
+          <div>
+            <h4 class="font-semibold">必要條件</h4>
+            <ul id="jobModalReq" class="list-disc pl-5 mt-1 space-y-1 text-slate-700"></ul>
+          </div>
+          <div id="jobMeta" class="text-sm text-slate-500"></div>
+        </div>
+        <footer class="px-6 py-4 border-t flex items-center justify-end gap-3">
+          <a id="jobApplyBtn" href="/apply" data-link
+             class="px-4 py-2 rounded-lg bg-blue-700 text-white font-semibold">我要應徵</a>
+          <button id="jobModalClose2" class="px-4 py-2 rounded-lg border font-semibold">關閉</button>
+        </footer>
+      </article>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="border-t bg-white">
     <div class="mx-auto container-narrow px-4 py-10 text-sm text-slate-600">
@@ -76,9 +102,7 @@
           <a href="/contact" data-link class="hover:underline">聯絡我們</a>
         </div>
       </div>
-      <p class="mt-3 text-xs text-slate-400">
-        本網站之內容僅供招募與一般性介紹；非投資建議。實際職缺內容與條件以正式公告為準。
-      </p>
+      <p class="mt-3 text-xs text-slate-400">本網站內容僅供招募與一般性介紹；非投資建議。</p>
     </div>
   </footer>
 
@@ -89,6 +113,9 @@
     const nav = document.getElementById('mobileNav');
     btn?.addEventListener('click', () => nav.classList.toggle('hidden'));
   </script>
+  <!-- 職缺資料與渲染（新增） -->
+  <script src="./jobs.js" defer></script>
+  <!-- Router -->
   <script src="./router.js" defer></script>
 </body>
 </html>
