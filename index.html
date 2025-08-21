@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>群益期貨｜通路事業部｜人才招募</title>
+  <title>群益期貨｜通路事業部 Careers</title>
   <meta name="description" content="加入群益期貨通路事業部：關於我們、職缺、福利、職涯、應徵流程、FAQ、聯絡方式。" />
   <link rel="icon" href="data:," />
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     html, body { height: 100%; }
@@ -15,19 +16,31 @@
   </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-800">
-  <!-- Header -->
+  <!-- Header / Navbar -->
   <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
     <div class="mx-auto container-narrow px-4 py-3 flex items-center justify-between">
-      <a href="/" data-link data-route="/" class="flex items-center gap-2">
-        <span class="text-xl font-extrabold">群益期貨</span>
-        <span class="text-sm text-slate-500">｜通路事業部 Careers</span>
+
+      <!-- 品牌（左）— 加入 LOGO 圖 -->
+      <a href="/" data-link data-route="/" class="flex items-center gap-3">
+        <img src="images/群益logo.png"
+             alt="群益期貨 Capital Futures"
+             class="h-8 md:h-9 w-auto"
+             width="170" height="57"
+             loading="eager" decoding="async"
+             onerror="this.onerror=null;this.src='https://placehold.co/170x57?text=LOGO';">
+        <div class="flex items-baseline gap-2">
+          <span class="text-xl font-extrabold">群益期貨</span>
+          <span class="text-sm text-slate-500">｜通路事業部 Careers</span>
+        </div>
       </a>
+
+      <!-- 導覽（右） -->
       <nav class="hidden md:flex items-center gap-5 text-sm">
         <a href="/" data-link data-route="/" class="hover:text-blue-600">首頁</a>
         <a href="/about-us" data-link data-route="/about-us" class="hover:text-blue-600">關於我們</a>
-        <a href="/openings" data-link data-route="/openings" class="hover:text-blue-600">招募職缺</a>
-        <a href="/benefits-life" data-link data-route="/benefits-life" class="hover:text-blue-600">福利制度</a>
-        <a href="/career-path" data-link data-route="/career-path" class="hover:text-blue-600">職涯發展</a>
+        <a href="/openings" data-link data-route="/openings" class="hover:text-blue-600">熱門職缺</a>
+        <a href="/benefits-life" data-link data-route="/benefits-life" class="hover:text-blue-600">福利與生活</a>
+        <a href="/career-path" data-link data-route="/career-path" class="hover:text-blue-600">職涯藍圖</a>
         <a href="/apply" data-link data-route="/apply" class="hover:text-blue-600">應徵流程</a>
         <a href="/faq" data-link data-route="/faq" class="hover:text-blue-600">常見問題</a>
         <a href="/contact" data-link data-route="/contact" class="hover:text-blue-600">聯絡我們</a>
@@ -36,15 +49,19 @@
           馬上來電 (02)2700-2888
         </button>
       </nav>
+
+      <!-- Mobile Menu Button -->
       <button id="menuBtn" class="md:hidden px-3 py-2 rounded border text-sm">選單</button>
     </div>
+
+    <!-- Mobile Nav -->
     <div id="mobileNav" class="md:hidden hidden border-t bg-white">
       <div class="mx-auto container-narrow px-4 py-3 grid grid-cols-2 gap-3 text-sm">
         <a href="/" data-link data-route="/" class="block">首頁</a>
         <a href="/about-us" data-link data-route="/about-us" class="block">關於我們</a>
-        <a href="/openings" data-link data-route="/openings" class="block">招募職缺</a>
-        <a href="/benefits-life" data-link data-route="/benefits-life" class="block">福利制度</a>
-        <a href="/career-path" data-link data-route="/career-path" class="block">職涯發展</a>
+        <a href="/openings" data-link data-route="/openings" class="block">熱門職缺</a>
+        <a href="/benefits-life" data-link data-route="/benefits-life" class="block">福利與生活</a>
+        <a href="/career-path" data-link data-route="/career-path" class="block">職涯藍圖</a>
         <a href="/apply" data-link data-route="/apply" class="block">應徵流程</a>
         <a href="/faq" data-link data-route="/faq" class="block">常見問題</a>
         <a href="/contact" data-link data-route="/contact" class="block">聯絡我們</a>
@@ -67,9 +84,7 @@
       <article class="w-full max-w-2xl rounded-2xl bg-white shadow-xl border">
         <header class="px-6 py-4 border-b flex items-center justify-between">
           <h3 id="jobModalTitle" class="text-xl font-bold">職缺標題</h3>
-          <button id="jobModalClose" class="p-2 rounded hover:bg-slate-100" aria-label="關閉">
-            ✕
-          </button>
+          <button id="jobModalClose" class="p-2 rounded hover:bg-slate-100" aria-label="關閉">✕</button>
         </header>
         <div class="px-6 py-4 space-y-4 max-h-[70vh] overflow-auto">
           <p id="jobModalSummary" class="text-slate-700"></p>
@@ -106,16 +121,27 @@
     </div>
   </footer>
 
+  <!-- Utilities -->
   <script>
-    // 年份與手機選單
     document.getElementById('y').textContent = new Date().getFullYear();
     const btn = document.getElementById('menuBtn');
     const nav = document.getElementById('mobileNav');
     btn?.addEventListener('click', () => nav.classList.toggle('hidden'));
   </script>
-  <!-- 職缺資料與渲染（新增） -->
-  <script src="./assets/js/jobs.js" defer></script>
-  <!-- Router -->
-  <<script src="./assets/js/router.js" defer></script>
+
+  <!-- 動態載入 /assets/js/（自動判斷 GitHub Pages 專案路徑） -->
+  <script>
+    (function () {
+      const segs = location.pathname.split('/').filter(Boolean);
+      const base = segs.length ? '/' + segs[0] + '/' : '/'; // e.g. "/repo/" 或 "/"
+      function load(src, fallback) {
+        var s = document.createElement('script'); s.defer = true; s.src = src;
+        if (fallback) s.onerror = () => load(fallback);
+        document.head.appendChild(s);
+      }
+      load(base + 'assets/js/jobs.js', '/assets/js/jobs.js');     // 首選 /repo/assets/...，失敗再試 /assets/...
+      load(base + 'assets/js/router.js', '/assets/js/router.js');
+    })();
+  </script>
 </body>
 </html>
