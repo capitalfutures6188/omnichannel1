@@ -1,11 +1,30 @@
-// ------- 路由與環境偵測 -------
-const SCRIPT_URL = (() => {
-  const s = document.currentScript && document.currentScript.src;
-  try { return new URL(s || './router.js', window.location.href); }
-  catch { return new URL('./router.js', window.location.href); }
-})();
-const BASE_PATH = SCRIPT_URL.pathname.replace(/\/[^\/]*$/, '/') || '/';
+/**
+ * Router for GitHub Pages (works when router.js is under /assets/js/)
+ * - Clean paths: /about-us, /openings ...
+ * - 404 deep-link fallback supported (same shell)
+ * - ?p=/path fallback supported
+ * - #hash scroll supported
+ */
 
+/* ---- Base path detection (repo root), independent of script location ---- */
+(function() {
+  const scriptUrl = new URL(document.currentScript?.src || './assets/js/router.js', location.href);
+  const scriptPath = scriptUrl.pathname; // e.g. /my-repo/assets/js/router.js  or /router.js
+
+  // Derive repo base path (the path segment before "assets/js/router.js" if present)
+  let base = '/';
+  if (scriptPath.includes('/assets/js/')) {
+    base = scriptPath.split('/assets/js/')[0] || '/'; // => "/my-repo"
+  } else {
+    base = scriptPath.replace(/\/[^\/]*$/, '');        // => "" or "/my-repo"
+  }
+  if (!base.endsWith('/')) base += '/';
+
+  // expose
+  window.__APP_BASE_PATH__ = base;
+})();
+
+/* ---- Routes ---- */
 const ROUTES = {
   '/': 'home',
   '/home': 'home',
@@ -18,16 +37,19 @@ const ROUTES = {
   '/contact': 'contact',
 };
 
-const qs = (s, r = document) => r.querySelector(s);
+/* ---- Utils ---- */
+const qs  = (s, r = document) => r.querySelector(s);
 const qsa = (s, r = document) => Array.from(r.querySelectorAll(s));
 const $app = () => qs('#app');
 
 function getRelativePath() {
-  const url = new URL(window.location.href);
-  const qp = url.searchParams.get('p');
-  let rawPath = qp || url.pathname;
-  if (rawPath.startsWith(BASE_PATH)) rawPath = rawPath.slice(BASE_PATH.length - 1);
-  const clean = rawPath.replace(/\/+$/, '') || '/';
+  const base = window.__APP_BASE_PATH__ || '/';
+  const url  = new URL(location.href);
+  const qp   = url.searchParams.get('p');
+
+  let raw = qp || url.pathname;              // prefer ?p=
+  if (raw.startsWith(base)) raw = raw.slice(base.length - 1); // keep leading "/"
+  const clean = raw.replace(/\/+$/, '') || '/';
   return clean;
 }
 
@@ -42,10 +64,9 @@ function highlightActiveNav() {
 function bindLinks() {
   qsa('a[href]').forEach(a => {
     const href = a.getAttribute('href') || '';
-    if (/^(https?:)?\/\//i.test(href) || /^(mailto:|tel:|#)/i.test(href) || /\.[a-z0-9]{2,8}(\?.*)?$/i.test(href)) {
-      a.setAttribute('rel', 'noopener');
-      return;
-    }
+    // external, mailto, tel, hash, file downloads -> pass through
+    if (/^(https?:)?\/\//i.test(href) || /^(mailto:|tel:|#)/i.test(href) || /\.[a-z0-9]{2,8}(\?.*)?$/i.test(href)) return;
+
     a.addEventListener('click', e => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       e.preventDefault();
@@ -56,7 +77,8 @@ function bindLinks() {
 }
 
 async function loadPage(name) {
-  const pageURL = new URL(`pages/${name}.html`, `${window.location.origin}${BASE_PATH}`).href;
+  const base = window.__APP_BASE_PATH__ || '/';
+  const pageURL = new URL(`pages/${name}.html`, `${location.origin}${base}`).href;
   const res = await fetch(pageURL, { cache: 'no-store' });
   if (!res.ok) throw new Error(`載入失敗：${name} (${res.status})`);
   const html = await res.text();
@@ -75,18 +97,19 @@ async function loadPage(name) {
     ? `${h1.textContent.trim()}｜群益期貨 Careers`
     : '群益期貨｜通路事業部 Careers';
 
-  // 🔔 新增：頁面載入 hook（供 jobs.js 使用）
+  // allow page hook (for jobs.js rendering)
   window.onPageLoad && window.onPageLoad(name);
 }
 
 function route() {
-  const rel = getRelativePath();
+  const rel  = getRelativePath();
   const page = ROUTES[rel] || 'home';
   loadPage(page).catch(() => loadPage('home'));
 }
 
 function navigate(to) {
-  const abs = new URL(to.replace(/^\//, ''), `${window.location.origin}${BASE_PATH}`).pathname + location.search + location.hash;
+  const base = window.__APP_BASE_PATH__ || '/';
+  const abs  = new URL(to.replace(/^\//, ''), `${location.origin}${base}`).pathname + location.search + location.hash;
   history.pushState({}, '', abs);
   route();
 }
