@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>群益期貨｜通路事業部 SPA</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Feather Icons（router.js 會呼叫 feather.replace()） -->
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <style>
+    :root{ --brand:#B91C1C; --primary:#1E3A8A; }
+    body{ font-family: 'Noto Sans TC', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:#f8fafc; color:#334155; }
+    .btn{ display:inline-flex; align-items:center; justify-content:center; padding:.7rem 1.1rem; border-radius:.8rem; font-weight:800; }
+    .btn-primary{ background:var(--brand); color:#fff; }
+    .btn-primary:hover{ background:#991B1B; }
+    /* 導覽 active 樣式（router.js 會幫你加 aria-current="page"） */
+    .header-nav a[aria-current="page"]{ color:var(--brand); font-weight:900; }
+
+    /* tabs（open-account 頁會用到） */
+    .tab-content{ display:none; }
+    .tab-content.active{ display:block; }
+
+    /* Modal（about 頁會用到） */
+    .modal{ position:fixed; inset:0; display:none; background:rgba(15,23,42,.55); }
+    .modal.active{ display:flex; align-items:center; justify-content:center; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="bg-white/90 sticky top-0 z-40 border-b backdrop-blur">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="/" data-route="home" class="flex items-center gap-3 font-black text-[var(--primary)]">
+        <img src="images/群益logo.png" alt="Logo" class="h-8" onerror="this.src='https://placehold.co/120x32/1E3A8A/FFFFFF?text=LOGO';">
+        <span class="hidden sm:inline">通路事業部｜人才招募</span>
+      </a>
+
+      <nav class="header-nav hidden md:flex items-center gap-3">
+        <a href="/home" data-route="home" class="px-3 py-2 hover:text-[var(--brand)]">首頁</a>
+        <a href="/about" data-route="about" class="px-3 py-2 hover:text-[var(--brand)]">關於我們</a>
+        <a href="/open-account" data-route="open-account" class="px-3 py-2 hover:text-[var(--brand)]">立即開戶</a>
+        <a href="/tutorial" data-route="tutorial" class="px-3 py-2 hover:text-[var(--brand)]">交易教學</a>
+        <a href="/platform" data-route="platform" class="px-3 py-2 hover:text-[var(--brand)]">交易平台</a>
+        <a href="/domestic-info" data-route="domestic-info" class="px-3 py-2 hover:text-[var(--brand)]">國內商品資訊</a>
+        <a href="/foreign-info" data-route="foreign-info" class="px-3 py-2 hover:text-[var(--brand)]">國外商品資訊</a>
+        <a href="/faq" data-route="faq" class="px-3 py-2 hover:text-[var(--brand)]">FAQ</a>
+        <a href="/open-account" data-route="open-account" class="btn btn-primary ml-2">我要應徵 / 開戶</a>
+      </nav>
+
+      <!-- Mobile -->
+      <button id="mobile-menu-button" class="md:hidden rounded-lg p-2 border">
+        <i data-feather="menu"></i>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="md:hidden hidden border-t bg-white">
+      <nav class="header-nav px-4 py-3 grid gap-2">
+        <a href="/home" data-route="home" class="py-2">首頁</a>
+        <a href="/about" data-route="about" class="py-2">關於我們</a>
+        <a href="/open-account" data-route="open-account" class="py-2">立即開戶</a>
+        <a href="/tutorial" data-route="tutorial" class="py-2">交易教學</a>
+        <a href="/platform" data-route="platform" class="py-2">交易平台</a>
+        <a href="/domestic-info" data-route="domestic-info" class="py-2">國內商品資訊</a>
+        <a href="/foreign-info" data-route="foreign-info" class="py-2">國外商品資訊</a>
+        <a href="/faq" data-route="faq" class="py-2">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- App 容器：router.js 會把 /pages/*.html 插進來 -->
+  <main class="max-w-6xl mx-auto px-4">
+    <div id="app" class="py-10"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-10 bg-slate-900 text-slate-200">
+    <div class="max-w-6xl mx-auto px-4 py-10 text-center">
+      <h3 class="text-xl font-extrabold mb-2">有問題想先聊聊？</h3>
+      <p class="opacity-80">Email：<a class="underline" href="mailto:hr.channel@capital.com.tw">hr.channel@capital.com.tw</a></p>
+      <p class="mt-6 text-xs opacity-60">&copy; 2025 群益期貨股份有限公司</p>
+    </div>
+  </footer>
+
+  <!-- Services Modal（about 頁會呼叫 openServiceModal） -->
+  <div id="services-modal" class="modal" aria-hidden="true">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-[92%] p-6 relative">
+      <button id="services-close" class="absolute right-3 top-3 p-2 rounded hover:bg-slate-100" aria-label="Close">
+        <i data-feather="x"></i>
+      </button>
+      <div id="services-modal-body" class="prose"></div>
+    </div>
+  </div>
+
+  <!-- 掛載你的 Router -->
+  <script src="router.js" defer></script>
+</body>
+</html>
