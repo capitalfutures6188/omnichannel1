@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <title>Redirecting…</title>
+  <meta name="robots" content="noindex" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+  <p>Redirecting…</p>
+  <script>
+    (function () {
+      var l = window.location, parts = l.pathname.split("/").filter(Boolean);
+      var base = (l.hostname.endsWith(".github.io") && parts.length) ? ("/"+parts[0]+"/") : "/";
+      if (!base.endsWith("/")) base += "/";
+      var full = l.pathname + l.search + l.hash;
+      l.replace(base + "?p=" + encodeURIComponent(full.replace(base, "/")));
+    })();
+  </script>
+</body>
+</html>
