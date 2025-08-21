@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
@@ -16,19 +15,29 @@
   </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-800">
-  <!-- Header -->
+  <!-- 與 index 相同的殼（保持一致，讓深連結能回到 SPA） -->
   <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
     <div class="mx-auto container-narrow px-4 py-3 flex items-center justify-between">
-      <a href="/" data-link data-route="/" class="flex items-center gap-2">
-        <span class="text-xl font-extrabold">群益期貨</span>
-        <span class="text-sm text-slate-500">｜通路事業部 Careers</span>
+
+      <a href="/" data-link data-route="/" class="flex items-center gap-3">
+        <img src="images/群益logo.png"
+             alt="群益期貨 Capital Futures"
+             class="h-8 md:h-9 w-auto"
+             width="170" height="57"
+             loading="eager" decoding="async"
+             onerror="this.onerror=null;this.src='https://placehold.co/170x57?text=LOGO';">
+        <div class="flex items-baseline gap-2">
+          <span class="text-xl font-extrabold">群益期貨</span>
+          <span class="text-sm text-slate-500">｜通路事業部 Careers</span>
+        </div>
       </a>
+
       <nav class="hidden md:flex items-center gap-5 text-sm">
         <a href="/" data-link data-route="/" class="hover:text-blue-600">首頁</a>
         <a href="/about-us" data-link data-route="/about-us" class="hover:text-blue-600">關於我們</a>
-        <a href="/openings" data-link data-route="/openings" class="hover:text-blue-600">招募職缺</a>
-        <a href="/benefits-life" data-link data-route="/benefits-life" class="hover:text-blue-600">福利制度</a>
-        <a href="/career-path" data-link data-route="/career-path" class="hover:text-blue-600">職涯發展</a>
+        <a href="/openings" data-link data-route="/openings" class="hover:text-blue-600">熱門職缺</a>
+        <a href="/benefits-life" data-link data-route="/benefits-life" class="hover:text-blue-600">福利與生活</a>
+        <a href="/career-path" data-link data-route="/career-path" class="hover:text-blue-600">職涯藍圖</a>
         <a href="/apply" data-link data-route="/apply" class="hover:text-blue-600">應徵流程</a>
         <a href="/faq" data-link data-route="/faq" class="hover:text-blue-600">常見問題</a>
         <a href="/contact" data-link data-route="/contact" class="hover:text-blue-600">聯絡我們</a>
@@ -37,15 +46,17 @@
           馬上來電 (02)2700-2888
         </button>
       </nav>
+
       <button id="menuBtn" class="md:hidden px-3 py-2 rounded border text-sm">選單</button>
     </div>
+
     <div id="mobileNav" class="md:hidden hidden border-t bg-white">
       <div class="mx-auto container-narrow px-4 py-3 grid grid-cols-2 gap-3 text-sm">
         <a href="/" data-link data-route="/" class="block">首頁</a>
         <a href="/about-us" data-link data-route="/about-us" class="block">關於我們</a>
-        <a href="/openings" data-link data-route="/openings" class="block">招募職缺</a>
-        <a href="/benefits-life" data-link data-route="/benefits-life" class="block">福利制度</a>
-        <a href="/career-path" data-link data-route="/career-path" class="block">職涯發展</a>
+        <a href="/openings" data-link data-route="/openings" class="block">熱門職缺</a>
+        <a href="/benefits-life" data-link data-route="/benefits-life" class="block">福利與生活</a>
+        <a href="/career-path" data-link data-route="/career-path" class="block">職涯藍圖</a>
         <a href="/apply" data-link data-route="/apply" class="block">應徵流程</a>
         <a href="/faq" data-link data-route="/faq" class="block">常見問題</a>
         <a href="/contact" data-link data-route="/contact" class="block">聯絡我們</a>
@@ -58,19 +69,16 @@
     </div>
   </header>
 
-  <!-- App Viewport -->
   <main id="app" class="grow"></main>
 
-  <!-- ===== 職缺 Modal（預設隱藏） ===== -->
+  <!-- 與 index 相同的職缺 Modal -->
   <div id="jobModal" class="fixed inset-0 z-[60] hidden">
     <div id="jobModalOverlay" class="absolute inset-0 bg-black/40"></div>
     <div class="absolute inset-0 flex items-center justify-center px-4">
       <article class="w-full max-w-2xl rounded-2xl bg-white shadow-xl border">
         <header class="px-6 py-4 border-b flex items-center justify-between">
           <h3 id="jobModalTitle" class="text-xl font-bold">職缺標題</h3>
-          <button id="jobModalClose" class="p-2 rounded hover:bg-slate-100" aria-label="關閉">
-            ✕
-          </button>
+          <button id="jobModalClose" class="p-2 rounded hover:bg-slate-100" aria-label="關閉">✕</button>
         </header>
         <div class="px-6 py-4 space-y-4 max-h-[70vh] overflow-auto">
           <p id="jobModalSummary" class="text-slate-700"></p>
@@ -93,7 +101,6 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer class="border-t bg-white">
     <div class="mx-auto container-narrow px-4 py-10 text-sm text-slate-600">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -108,15 +115,25 @@
   </footer>
 
   <script>
-    // 年份與手機選單
     document.getElementById('y').textContent = new Date().getFullYear();
     const btn = document.getElementById('menuBtn');
     const nav = document.getElementById('mobileNav');
     btn?.addEventListener('click', () => nav.classList.toggle('hidden'));
   </script>
-  <!-- 職缺資料與渲染（新增） -->
-  <script src="./assets/js/jobs.js" defer></script>
-  <!-- Router -->
-  <<script src="./assets/js/router.js" defer></script>
+
+  <!-- 同樣用動態載入，確保深連結也能抓到腳本 -->
+  <script>
+    (function () {
+      const segs = location.pathname.split('/').filter(Boolean);
+      const base = segs.length ? '/' + segs[0] + '/' : '/';
+      function load(src, fallback) {
+        var s = document.createElement('script'); s.defer = true; s.src = src;
+        if (fallback) s.onerror = () => load(fallback);
+        document.head.appendChild(s);
+      }
+      load(base + 'assets/js/jobs.js', '/assets/js/jobs.js');
+      load(base + 'assets/js/router.js', '/assets/js/router.js');
+    })();
+  </script>
 </body>
 </html>
