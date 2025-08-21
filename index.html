@@ -10,48 +10,47 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     html, body { height: 100%; }
-    .container-narrow { max-width: 1100px; }
+    .container-narrow { max-width: 1200px; }            /* 放寬容器，避免擁擠 */
     .nav-link-active { color: #2563eb; font-weight: 700; }
     .modal-open { overflow: hidden; }
+    /* 隱藏水平卷軸樣式（導覽必要時可橫向滑動，但不顯示捲軸） */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-800">
   <!-- Header / Navbar -->
   <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
-    <div class="mx-auto container-narrow px-4 py-3 flex items-center justify-between">
+    <div class="mx-auto container-narrow px-4 py-3 flex items-center justify-between gap-4">
 
-      <!-- 品牌（左）— 加入 LOGO 圖 -->
-      <a href="/" data-link data-route="/" class="flex items-center gap-3">
+      <!-- 品牌（左）— LOGO + 字樣 -->
+      <a href="/" data-link data-route="/" class="flex items-center gap-3 shrink-0">
         <img src="images/群益logo.png"
              alt="群益期貨 Capital Futures"
              class="h-8 md:h-9 w-auto"
              width="170" height="57"
              loading="eager" decoding="async"
              onerror="this.onerror=null;this.src='https://placehold.co/170x57?text=LOGO';">
-        <div class="flex items-baseline gap-2">
+        <div class="hidden sm:flex items-baseline gap-2">
           <span class="text-xl font-extrabold">群益期貨</span>
           <span class="text-sm text-slate-500">｜通路事業部 Careers</span>
         </div>
       </a>
 
-      <!-- 導覽（右） -->
-      <nav class="hidden md:flex items-center gap-5 text-sm">
-        <a href="/" data-link data-route="/" class="hover:text-blue-600">首頁</a>
-        <a href="/about-us" data-link data-route="/about-us" class="hover:text-blue-600">關於我們</a>
-        <a href="/openings" data-link data-route="/openings" class="hover:text-blue-600">熱門職缺</a>
-        <a href="/benefits-life" data-link data-route="/benefits-life" class="hover:text-blue-600">福利與生活</a>
-        <a href="/career-path" data-link data-route="/career-path" class="hover:text-blue-600">職涯藍圖</a>
-        <a href="/apply" data-link data-route="/apply" class="hover:text-blue-600">應徵流程</a>
-        <a href="/faq" data-link data-route="/faq" class="hover:text-blue-600">常見問題</a>
-        <a href="/contact" data-link data-route="/contact" class="hover:text-blue-600">聯絡我們</a>
-        <button type="button" aria-disabled="true"
-                class="ml-2 px-3 py-2 rounded-lg border text-xs font-semibold cursor-default select-text">
-          馬上來電 (02)2700-2888
-        </button>
+      <!-- 導覽：不換行，必要時可水平滑動 -->
+      <nav class="hidden md:flex items-center gap-4 lg:gap-6 text-[15px] flex-nowrap overflow-x-auto no-scrollbar">
+        <a href="/" data-link data-route="/" class="hover:text-blue-600 whitespace-nowrap">首頁</a>
+        <a href="/about-us" data-link data-route="/about-us" class="hover:text-blue-600 whitespace-nowrap">關於我們</a>
+        <a href="/openings" data-link data-route="/openings" class="hover:text-blue-600 whitespace-nowrap">熱門職缺</a>
+        <a href="/benefits-life" data-link data-route="/benefits-life" class="hover:text-blue-600 whitespace-nowrap">福利與生活</a>
+        <a href="/career-path" data-link data-route="/career-path" class="hover:text-blue-600 whitespace-nowrap">職涯藍圖</a>
+        <a href="/apply" data-link data-route="/apply" class="hover:text-blue-600 whitespace-nowrap">應徵流程</a>
+        <a href="/faq" data-link data-route="/faq" class="hover:text-blue-600 whitespace-nowrap">常見問題</a>
+        <a href="/contact" data-link data-route="/contact" class="hover:text-blue-600 whitespace-nowrap">聯絡我們</a>
       </nav>
 
       <!-- Mobile Menu Button -->
-      <button id="menuBtn" class="md:hidden px-3 py-2 rounded border text-sm">選單</button>
+      <button id="menuBtn" class="md:hidden px-3 py-2 rounded border text-sm shrink-0">選單</button>
     </div>
 
     <!-- Mobile Nav -->
@@ -65,11 +64,6 @@
         <a href="/apply" data-link data-route="/apply" class="block">應徵流程</a>
         <a href="/faq" data-link data-route="/faq" class="block">常見問題</a>
         <a href="/contact" data-link data-route="/contact" class="block">聯絡我們</a>
-        <div class="col-span-2">
-          <div class="mt-2 px-3 py-2 rounded-lg border text-xs font-semibold inline-block">
-            馬上來電 (02)2700-2888
-          </div>
-        </div>
       </div>
     </div>
   </header>
@@ -107,23 +101,37 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="border-t bg-white">
-    <div class="mx-auto container-narrow px-4 py-10 text-sm text-slate-600">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>© <span id="y"></span> 群益期貨通路事業部｜Careers</div>
-        <div class="flex items-center gap-4">
-          <a href="/openings" data-link class="text-blue-700 hover:underline">立即應徵</a>
-          <a href="/contact" data-link class="hover:underline">聯絡我們</a>
-        </div>
-      </div>
-      <p class="mt-3 text-xs text-slate-400">本網站內容僅供招募與一般性介紹；非投資建議。</p>
+  <!-- ===== 深色聯絡區（取代原本 footer） ===== -->
+  <footer class="mt-8 bg-[#0f2233] text-slate-100">
+    <div class="mx-auto container-narrow px-4 py-12 text-center">
+      <h2 class="text-2xl md:text-3xl font-extrabold">有問題想先聊聊？</h2>
+
+      <p class="mt-4 text-slate-200">
+        招募窗口：人力資源部 林小姐
+      </p>
+
+      <p class="mt-2">
+        Email：
+        <a class="underline decoration-2 underline-offset-2 hover:opacity-90 text-red-300"
+           href="mailto:hr.channel@capital.com.tw">hr.channel@capital.com.tw</a>
+      </p>
+
+      <p class="mt-3">
+        <a href="https://www.google.com/maps/search/?api=1&query=%E5%8F%B0%E5%8C%97%E5%B8%82%E6%9D%BE%E5%B1%B1%E5%8D%80%E6%B0%91%E7%94%9F%E6%9D%B1%E8%B7%AF%E4%B8%89%E6%AE%B5156%E8%99%9F7F%E4%B9%8B6"
+           target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 ring-1 ring-white/10 hover:bg-white/10">
+          台北市松山區民生東路三段156號7F之6
+          <span aria-hidden>↗</span>
+        </a>
+      </p>
+
+      <p class="mt-8 text-xs text-slate-300">© 2024 群益期貨股份有限公司版權所有</p>
     </div>
   </footer>
 
   <!-- Utilities -->
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+    document.getElementById('y')?.remove(); // 舊年份 span 已移除
     const btn = document.getElementById('menuBtn');
     const nav = document.getElementById('mobileNav');
     btn?.addEventListener('click', () => nav.classList.toggle('hidden'));
@@ -139,7 +147,7 @@
         if (fallback) s.onerror = () => load(fallback);
         document.head.appendChild(s);
       }
-      load(base + 'assets/js/jobs.js', '/assets/js/jobs.js');     // 首選 /repo/assets/...，失敗再試 /assets/...
+      load(base + 'assets/js/jobs.js', '/assets/js/jobs.js');
       load(base + 'assets/js/router.js', '/assets/js/router.js');
     })();
   </script>
